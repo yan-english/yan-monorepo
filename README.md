@@ -1,5 +1,5 @@
 # Project Name
-Yan English
+Yan Flashcards
 ## Description
 This project consists of two main parts: `yan-web` and `yan-api`.
 
@@ -43,8 +43,4 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
-## Additional Scripts
 
-### `yan-web`
-
-### `yan-api`
