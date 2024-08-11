@@ -28,19 +28,12 @@ This project consists of two main parts: `yan-web` and `yan-api`.
 ## Running the Applications
 
 ### Running `yan-web`
-```sh
+```bash
 pnpm run web:dev
 ```
 
 ### Running `yan-api`
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+$ pnpm run api:dev
 ```
 
