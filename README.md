@@ -7,6 +7,8 @@ This project consists of two main parts: `yan-web` and `yan-api`.
 - `yan-api`: A NestJS-based backend application.
 
 ## Prerequisites
+- Node.js (version 16.x or higher)
+- pnpm (version 8.x or higher)
 
 ## Installation
 1. Clone the repository:
