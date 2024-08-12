@@ -1,5 +1,4 @@
 export type AggregateID = string;
-
 export interface BaseEntityProps {
   id: AggregateID;
   createdAt: Date;
