@@ -19,9 +19,6 @@ This project consists of two main parts: `yan-web` and `yan-api`.
 
 2. Install dependencies for both `yan-web` and `yan-api`:
     ```sh
-    cd packages/yan-web
-    pnpm install
-    cd ../yan-api
     pnpm install
     ```
 
