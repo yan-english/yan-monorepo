@@ -2,7 +2,7 @@ import { DomainEvent } from './domain-event.base';
 import { Entity } from './entity.base';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
+export abstract class AggregateRoot<ID> extends Entity<ID> {
   private _domainEvents: DomainEvent[] = [];
 
   get domainEvents(): DomainEvent[] {

@@ -1,4 +1,4 @@
-export class PasswordVo {
+export class Password {
   private readonly value: string;
 
   constructor(value: string) {

@@ -1,113 +1,15 @@
 export type AggregateID = string;
-export interface BaseEntityProps {
-  id: AggregateID;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
-export interface CreateEntityProps<T> {
-  id: AggregateID;
-  props: T;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+export abstract class Entity<ID> {
 
-export abstract class Entity<EntityProps> {
-  constructor({
-    id,
-    createdAt,
-    updatedAt,
-    props,
-  }: CreateEntityProps<EntityProps>) {
-    this.setId(id);
-    this.validateProps(props);
-    const now = new Date();
-    this._createdAt = createdAt || now;
-    this._updatedAt = updatedAt || now;
-    this.props = props;
-    this.validate();
+  protected id: ID;
+
+  public getId(): ID {
+    return this.id;
   }
 
-  protected readonly props: EntityProps;
-
-  /**
-   * ID is set in the concrete entity implementation to support
-   * different ID types depending on your needs.
-   * For example, it could be a UUID for aggregate root,
-   * and shortid / nanoid for child entities.
-   */
-  protected abstract _id: AggregateID;
-
-  private readonly _createdAt: Date;
-
-  private readonly _updatedAt: Date;
-
-  get id(): AggregateID {
-    return this._id;
+  public setId(id: ID): void {
+    this.id = id;
   }
 
-  private setId(id: AggregateID): void {
-    this._id = id;
-  }
-
-  get createdAt(): Date {
-    return this._createdAt;
-  }
-
-  get updatedAt(): Date {
-    return this._updatedAt;
-  }
-
-  static isEntity(entity: unknown): entity is Entity<unknown> {
-    return entity instanceof Entity;
-  }
-
-  /**
-   *  Checks if two entities are the same Entity by comparing ID field.
-   * @param object Entity
-   */
-  public equals(object?: Entity<EntityProps>): boolean {
-    if (object === null || object === undefined) {
-      return false;
-    }
-
-    if (this === object) {
-      return true;
-    }
-
-    if (!Entity.isEntity(object)) {
-      return false;
-    }
-
-    return this.id ? this.id === object.id : false;
-  }
-
-  /**
-   * Returns entity properties.
-   * @return {*}  {Props & EntityProps}
-   * @memberof Entity
-   */
-  public getProps(): EntityProps & BaseEntityProps {
-    const propsCopy = {
-      id: this._id,
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      ...this.props,
-    };
-    return Object.freeze(propsCopy);
-  }
-
-  /**
-   * There are certain rules that always have to be true (invariants)
-   * for each entity. Validate method is called every time before
-   * saving an entity to the database to make sure those rules are respected.
-   */
-  public abstract validate(): void;
-
-  private validateProps(props: EntityProps): void {
-    if (!props) {
-      throw new Error('Entity props must be defined');
-    }
-    //TODO
-  }
 }
