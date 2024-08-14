@@ -16,7 +16,6 @@ export class User extends AggregateRoot<Id> {
       this.password = password;
     }
 
-
   private readonly username: Username;
   private readonly password: Password;
   private readonly email: Email;
@@ -43,6 +42,10 @@ export class User extends AggregateRoot<Id> {
     // We can publish an event here to notify that a user has been created
     return new User(id, email, password);
 
+  }
+
+  verifyPassword(rawPassword: string): boolean {
+    return this.password.verify(rawPassword);
   }
 
   validate(): void {

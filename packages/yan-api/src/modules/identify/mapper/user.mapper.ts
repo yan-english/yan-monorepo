@@ -1,7 +1,6 @@
 import {Mapper} from "../../../commons/ddd/mapper.interface";
 import {User} from "../domain/entities/user";
 import {UserEntity} from "../infrastructure/database/entities/user.entity";
-import {Username} from "../domain/value-objects/username.vo";
 import {Email} from "../domain/value-objects/email.vo";
 import {Password} from "../domain/value-objects/password.vo";
 import {Id} from "../domain/value-objects/id.vo";
@@ -11,7 +10,7 @@ export class UserMapper implements Mapper<User, UserEntity> {
         return new User(
             new Id(record.id),
             new Email(record.email),
-            new Password(record.password)
+            new Password(record.password, record.salt)
         )
     }
 
@@ -19,11 +18,12 @@ export class UserMapper implements Mapper<User, UserEntity> {
         return {
             id: entity.getId().getValue(),
             username: null,
-            password: entity.getPassword().getValue(),
+            password: entity.getPassword().getHashedPassword(),
             email: entity.getEmail().getValue(),
             dateOfBirth: null,
             gender: null,
-            userRoles: null
+            userRoles: null,
+            salt: entity.getPassword().getSalt()
         };
     }
 

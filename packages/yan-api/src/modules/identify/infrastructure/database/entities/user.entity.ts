@@ -25,4 +25,7 @@ export class UserEntity {
     @OneToMany(() => UserRoleEntity, userRole => userRole.user)
     userRoles: UserRoleEntity[];
 
+    @Column()
+    salt: string;
+
 }

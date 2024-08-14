@@ -4,8 +4,6 @@ import {User} from "../../../domain/entities/user";
 import {UserEntity} from "../entities/user.entity";
 import {UserMapper} from "../../../mapper/user.mapper";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Inject} from "@nestjs/common";
-import {USER_REPOSITORY} from "../../di/user.di-tokens";
 
 export class UserRepository implements UserRepositoryPort {
 

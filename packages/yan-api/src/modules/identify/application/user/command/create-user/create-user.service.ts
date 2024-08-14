@@ -7,8 +7,6 @@ import {ConflictException, Inject} from "@nestjs/common";
 import {UserAlreadyExistsException} from "../../../../domain/exceptions/user-exists.exception";
 import {Id} from "../../../../domain/value-objects/id.vo";
 import {USER_REPOSITORY} from "../../../../infrastructure/di/user.di-tokens";
-import {UserEntity} from "../../../../infrastructure/database/entities/user.entity";
-import {InjectRepository} from "@nestjs/typeorm";
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserService implements ICommandHandler<CreateUserCommand> {
