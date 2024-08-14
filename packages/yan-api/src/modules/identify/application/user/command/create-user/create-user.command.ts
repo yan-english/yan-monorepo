@@ -3,11 +3,11 @@ import {CreateUserRequestDto} from "./create-user.request.dto";
 
 export class CreateUserCommand {
 
-    readonly username: string;
+    readonly email: string;
     readonly password: string;
 
     constructor(props: CreateUserRequestDto) {
-        this.username = props.username;
+        this.email = props.email;
         this.password = props.password;
     }
 

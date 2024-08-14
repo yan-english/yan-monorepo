@@ -22,5 +22,8 @@
     "types": ["node"]
 
   },
-    "include": ["src/**/*.ts"],
+    "include": [
+      "src/**/*.ts",
+      "packages/yan-api/src/modules/identify/infrastructure/database/configs/typeorm.config.ts"
+    ],
 }

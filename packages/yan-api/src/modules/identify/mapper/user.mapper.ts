@@ -1,30 +1,33 @@
 import {Mapper} from "../../../commons/ddd/mapper.interface";
-import {UserEntity} from "../domain/entities/user.entity";
-import {User} from "../infrastructure/database/entities/user";
+import {User} from "../domain/entities/user";
+import {UserEntity} from "../infrastructure/database/entities/user.entity";
 import {Username} from "../domain/value-objects/username.vo";
 import {Email} from "../domain/value-objects/email.vo";
 import {Password} from "../domain/value-objects/password.vo";
 import {Id} from "../domain/value-objects/id.vo";
 
-export class UserMapper implements Mapper<UserEntity, User> {
-     toDomain(record: User): UserEntity {
-        return new UserEntity(
+export class UserMapper implements Mapper<User, UserEntity> {
+    toDomain(record: UserEntity): User {
+        return new User(
             new Id(record.id),
-            new Username(record.username),
+            new Email(record.email),
             new Password(record.password)
         )
     }
 
-toPersistence(entity: UserEntity): User {
-    return {
-        id: entity.getId().getValue(),
-        username: entity.getUsername().getValue(),
-        password: entity.getPassword().getValue(),
-        email: entity.getEmail().getValue(),
-    };
-}
+    toPersistence(entity: User): UserEntity {
+        return {
+            id: entity.getId().getValue(),
+            username: null,
+            password: entity.getPassword().getValue(),
+            email: entity.getEmail().getValue(),
+            dateOfBirth: null,
+            gender: null,
+            userRoles: null
+        };
+    }
 
-    toResponse(entity: UserEntity): any {
+    toResponse(entity: User) {
         return undefined;
     }
 

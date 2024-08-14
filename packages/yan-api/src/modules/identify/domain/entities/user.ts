@@ -7,11 +7,12 @@ import {Password} from "../value-objects/password.vo";
 import {CreateUserCommand} from "../../application/user/command/create-user/create-user.command";
 import {Email} from "../value-objects/email.vo";
 
-export class UserEntity extends AggregateRoot<Id> {
+export class User extends AggregateRoot<Id> {
 
-    constructor(id: Id, username: Username, password: Password) {
+    constructor(id: Id, email: Email, password: Password) {
       super();
-      this.username = username;
+      this.id = id;
+      this.email = email;
       this.password = password;
     }
 
@@ -32,15 +33,15 @@ export class UserEntity extends AggregateRoot<Id> {
     return this.password;
   }
 
-  static create(create: CreateUserCommand): UserEntity {
+  static create(create: CreateUserCommand): User {
 
     // Need to use snowflake instead of UUID here
     const id = new Id(randomUUID());
-    const username = new Username(create.username);
+    const email = new Email(create.email);
     const password = new Password(create.password);
 
     // We can publish an event here to notify that a user has been created
-    return new UserEntity(id, username, password);
+    return new User(id, email, password);
 
   }
 

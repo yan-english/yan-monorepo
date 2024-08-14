@@ -1,12 +1,14 @@
 import {CommandHandler, ICommandHandler} from "@nestjs/cqrs";
 import {CreateUserCommand} from "./create-user.command";
-import {UserEntity} from "../../../../domain/entities/user.entity";
+import {User} from "../../../../domain/entities/user";
 import {UserRepositoryPort} from "../../user.repository.port";
 import {Err, Ok, Result} from "oxide.ts";
 import {ConflictException, Inject} from "@nestjs/common";
 import {UserAlreadyExistsException} from "../../../../domain/exceptions/user-exists.exception";
 import {Id} from "../../../../domain/value-objects/id.vo";
 import {USER_REPOSITORY} from "../../../../infrastructure/di/user.di-tokens";
+import {UserEntity} from "../../../../infrastructure/database/entities/user.entity";
+import {InjectRepository} from "@nestjs/typeorm";
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserService implements ICommandHandler<CreateUserCommand> {
@@ -16,12 +18,11 @@ export class CreateUserService implements ICommandHandler<CreateUserCommand> {
     }
 
     async execute(command: CreateUserCommand): Promise<Result<Id, UserAlreadyExistsException>> {
-        const user = UserEntity.create(command);
+        const user = User.create(command);
 
-        // Use transaction here to ensure that the user is saved to the database
+        // TODO: Need to implement transaction here to ensure that the user is saved to the database
         try {
-            await this.userRepository.transaction(async () =>
-                await this.userRepository.createUser(user));
+                await this.userRepository.createUser(user);
             return Ok(user.getId())
         } catch (error: any) {
             if (error instanceof ConflictException) {

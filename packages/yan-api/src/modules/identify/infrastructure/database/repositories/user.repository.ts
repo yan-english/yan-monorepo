@@ -1,16 +1,23 @@
 import {Repository} from "typeorm";
 import {UserRepositoryPort} from "../../../application/user/user.repository.port";
-import {UserEntity} from "../../../domain/entities/user.entity";
-import {Paginated, PaginatedQueryParams} from "../../../../../commons/ddd/repository.port";
-import {User} from "../entities/user";
+import {User} from "../../../domain/entities/user";
+import {UserEntity} from "../entities/user.entity";
 import {UserMapper} from "../../../mapper/user.mapper";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Inject} from "@nestjs/common";
+import {USER_REPOSITORY} from "../../di/user.di-tokens";
 
-export class UserRepository extends Repository<User> implements UserRepositoryPort {
-    private readonly mapper: UserMapper;
+export class UserRepository implements UserRepositoryPort {
 
-    async createUser(entity: UserEntity): Promise<void> {
-        const user: User = this.mapper.toPersistence(entity);
-        await this.save(user);
+    constructor(
+        @InjectRepository(UserEntity as any)
+        private readonly userRepository: Repository<UserEntity>,
+    ) {}
+
+    async createUser(entity: User): Promise<void> {
+        const mapper = new UserMapper();
+        const user: UserEntity = mapper.toPersistence(entity);
+        await this.userRepository.save(user);
     }
 
     transaction<T>(handler: () => Promise<T>): Promise<T> {
