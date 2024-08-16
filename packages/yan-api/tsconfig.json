@@ -17,6 +17,13 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"]
+
+  },
+    "include": [
+      "src/**/*.ts",
+      "packages/yan-api/src/modules/identify/infrastructure/database/config/db/data-source.ts"
+    ],
 }
