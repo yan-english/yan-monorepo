@@ -27,6 +27,7 @@ export class UserMapper implements Mapper<User, UserEntity> {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toResponse(entity: User) {
     return undefined;
   }
