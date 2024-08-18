@@ -5,4 +5,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);
 }
-bootstrap().then(r => console.log('Server is running on http://localhost:3000'));
+bootstrap().then(() =>
+  console.log('Server is running on http://localhost:3000'),
+);
