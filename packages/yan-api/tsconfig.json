@@ -20,7 +20,6 @@
     "noFallthroughCasesInSwitch": false,
     "typeRoots": ["./node_modules/@types"],
     "types": ["node"],
-    "strictPropertyInitialization": false
   },
     "include": [
       "src/**/*.ts",
