@@ -20,7 +20,11 @@ export class LoginService {
       throw new Error('User does not exist');
     }
 
-    const isCorrectPassword = user.verifyPassword(command.password);
+    const isCorrectPassword = this.identifyService.verifyPassword(
+      command.password,
+      user.salt,
+      user.password,
+    );
     if (!isCorrectPassword) {
       throw new Error('Password is incorrect');
     }
