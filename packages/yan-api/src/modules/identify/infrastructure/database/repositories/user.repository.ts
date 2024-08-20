@@ -22,4 +22,15 @@ export class UserRepository implements UserRepositoryPort {
     //TODO
     return Promise.resolve(undefined);
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const userEntity = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!userEntity) return null;
+
+    const mapper = new UserMapper();
+    return mapper.toDomain(userEntity);
+  }
 }
