@@ -1,6 +1,6 @@
-import { User } from './entities/user';
 import { JwtService } from './jwt.service';
 import * as crypto from 'crypto';
+import { UserEntity } from '../infrastructure/database/entities/user.entity';
 
 /**
  * @description This is a domain service class for Identify domain
@@ -8,18 +8,24 @@ import * as crypto from 'crypto';
 export class IdentifyDomainService {
   constructor(private readonly jwtService: JwtService) {}
 
-  generateAccessToken(user: User): string {
+  generateAccessToken(user: UserEntity): string {
     const payload = {
-      sub: user.getId(),
-      // roles: user.getRoles()
+      sub: user.id,
+      roles: user.userRoles.map((role) => role.role),
     };
-    const value = this.jwtService.sign(payload);
     // const expiryDate = new Date(Date.now() + 3600 * 1000); // 1 hour
 
-    return value;
+    return this.jwtService.sign(payload);
   }
 
   generateRefreshToken(): string {
     return crypto.randomBytes(64).toString('hex');
+  }
+
+  verifyPassword(rawPassword: string, salt: string, hashedPassword): boolean {
+    const hashed = crypto
+      .pbkdf2Sync(rawPassword, salt, 1000, 64, 'sha512')
+      .toString('hex');
+    return hashed === hashedPassword;
   }
 }

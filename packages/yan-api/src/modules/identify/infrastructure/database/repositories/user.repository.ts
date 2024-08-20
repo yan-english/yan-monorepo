@@ -23,14 +23,9 @@ export class UserRepository implements UserRepositoryPort {
     return Promise.resolve(undefined);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const userEntity = await this.userRepository.findOne({
+  async findByEmail(email: string): Promise<UserEntity> {
+    return this.userRepository.findOne({
       where: { email },
     });
-
-    if (!userEntity) return null;
-
-    const mapper = new UserMapper();
-    return mapper.toDomain(userEntity);
   }
 }
