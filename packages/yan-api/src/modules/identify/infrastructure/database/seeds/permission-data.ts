@@ -1,7 +1,7 @@
 const permissionData = [
   {
     id: '1',
-    subject: 'users',
+    name: 'users',
     client: [
       {
         action: 'VIEW',

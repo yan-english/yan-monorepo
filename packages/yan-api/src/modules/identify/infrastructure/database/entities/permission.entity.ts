@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { RolePermissionEntity } from './role-permission.entity';
 
 interface ClientAction {
@@ -13,7 +13,7 @@ interface ServerAction {
 
 @Entity('permissions')
 export class PermissionEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: string;
 
   @Column({ unique: true })
