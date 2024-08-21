@@ -20,10 +20,10 @@ export class PermissionEntity {
   name: string;
 
   @Column('json')
-  client: ClientAction;
+  client: ClientAction[];
 
   @Column('json')
-  server: ServerAction;
+  server: ServerAction[];
 
   @OneToMany(
     () => RolePermissionEntity,

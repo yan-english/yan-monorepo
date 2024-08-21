@@ -24,6 +24,7 @@ dotenv.config({ path: path.join(__dirname, '../../../.env') });
           namingStrategy: new SnakeNamingStrategy(),
           entities: [__dirname + '/../../**/*.entity.{js,ts}'],
           migrations: [__dirname + '/../../migrations/*.{js,ts}'],
+          // seeds: [__dirname + '/../../seeds/*.{js,ts}'],
         };
       },
       inject: [],

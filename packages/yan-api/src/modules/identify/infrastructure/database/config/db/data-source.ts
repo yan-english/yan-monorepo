@@ -11,6 +11,7 @@ export const dataSource = new DataSource({
   port: parseInt(DataSourceConfiguration.port, 10),
   entities: [__dirname + '/../../**/*.entity.{js,ts}'],
   migrations: [__dirname + '/../../migrations/*.{js,ts}'],
+  // seeds: [__dirname + '/../../seeds/*.{js,ts}'],
 });
 
 dataSource
