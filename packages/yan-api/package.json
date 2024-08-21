@@ -24,7 +24,7 @@
     "schema:log": "typeorm-ts-node-commonjs -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts schema:log",
     "migration:revert": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts",
     "schema:drop": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts",
-    "seed:permissions": "npx ts-node -r tsconfig-paths/register ./src/modules/identify/infrastructure/database/seeds/permission.seeder.ts"
+    "seed:permissions": "npx ts-node -r tsconfig-paths/register ./src/modules/identify/infrastructure/database/seeds/run-seeder.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
