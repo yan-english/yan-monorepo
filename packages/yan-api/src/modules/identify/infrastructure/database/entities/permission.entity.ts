@@ -1,17 +1,33 @@
-import {Column, Entity, PrimaryGeneratedColumn, OneToMany} from "typeorm";
-import {RolePermissionEntity} from "./role-permission.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { RolePermissionEntity } from './role-permission.entity';
 
-@Entity("permissions")
+interface ClientAction {
+  action: string;
+  routes: string[];
+}
+
+interface ServerAction {
+  action: string;
+  routes: string[];
+}
+
+@Entity('permissions')
 export class PermissionEntity {
-    @PrimaryGeneratedColumn()
-    id: string;
+  @PrimaryGeneratedColumn()
+  id: string;
 
-    @Column({ unique: true })
-    name: string;
+  @Column({ unique: true })
+  name: string;
 
-    @Column()
-    description: string;
+  @Column('json')
+  client: ClientAction[];
 
-    @OneToMany(() => RolePermissionEntity, rolePermission => rolePermission.permission)
-    rolePermissions: RolePermissionEntity[];
+  @Column('json')
+  server: ServerAction[];
+
+  @OneToMany(
+    () => RolePermissionEntity,
+    (rolePermission) => rolePermission.permission,
+  )
+  rolePermissions: RolePermissionEntity[];
 }
