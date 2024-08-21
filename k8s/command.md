@@ -82,3 +82,22 @@ Edit Deployment:
 ```bash
   kubectl edit deployment/myapp-deployment
 ```
+Create Service:
+```bash
+  kubectl apply -f k8s/services/service.yaml
+```
+
+Get Service:
+```bash
+  kubectl get services
+```
+
+Delete Service:
+```bash
+  kubectl delete service myapp-service
+```
+Describe Service:
+```bash
+  kubectl describe service myapp-service
+```
+
