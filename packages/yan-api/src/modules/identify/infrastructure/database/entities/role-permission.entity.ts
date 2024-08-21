@@ -1,16 +1,15 @@
-// RolePermissionEntity entity
-import {Entity, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
-import {RoleEntity} from "./role.entity";
-import {PermissionEntity} from "./permission.entity";
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { RoleEntity } from './role.entity';
+import { PermissionEntity } from './permission.entity';
 
-@Entity("role_permissions")
+@Entity('role_permissions')
 export class RolePermissionEntity {
-    @PrimaryGeneratedColumn()
-    id: string;
+  @PrimaryGeneratedColumn()
+  id: string;
 
-    @ManyToOne(() => RoleEntity, role => role.rolePermissions)
-    role: RoleEntity;
+  @ManyToOne(() => RoleEntity, (role) => role.rolePermissions)
+  role: RoleEntity;
 
-    @ManyToOne(() => PermissionEntity, permission => permission.rolePermissions)
-    permission: PermissionEntity;
+  @ManyToOne(() => PermissionEntity, (permission) => permission.rolePermissions)
+  permission: PermissionEntity;
 }
