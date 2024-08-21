@@ -1,10 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { UserRoleEntity } from './user-role.entity';
 import { RolePermissionEntity } from './role-permission.entity';
 
 @Entity('roles')
 export class RoleEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: string;
 
   @Column({ unique: true })

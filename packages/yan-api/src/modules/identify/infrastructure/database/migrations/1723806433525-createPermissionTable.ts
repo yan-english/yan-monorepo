@@ -6,7 +6,8 @@ export class CreatePermissionTable1723806433525 implements MigrationInterface {
             CREATE TABLE permissions (
                 id VARCHAR(255) PRIMARY KEY,
                 name VARCHAR(255) UNIQUE NOT NULL,
-                description VARCHAR(255) NOT NULL,
+                client jsonb NOT NULL,
+                server jsonb NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 created_by VARCHAR(255),
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
