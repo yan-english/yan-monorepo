@@ -10,12 +10,14 @@ export class User extends AggregateRoot<Id> {
   private readonly username: Username;
   private readonly password: Password;
   private readonly email: Email;
+  private readonly roles: string[] = [];
 
-  constructor(id: Id, email: Email, password: Password) {
+  constructor(id: Id, email: Email, password: Password, roles: string[]) {
     super();
     this.id = id;
     this.email = email;
     this.password = password;
+    this.roles = roles;
   }
 
   static create(create: CreateUserCommand): User {
@@ -23,15 +25,19 @@ export class User extends AggregateRoot<Id> {
     const id = new Id(randomUUID());
     const email = new Email(create.email);
     const password = new Password(create.password);
+    const roles = create.roles;
 
     // We can publish an event here to notify that a user has been created
-    return new User(id, email, password);
+    return new User(id, email, password, roles);
   }
 
   public getEmail(): Email {
     return this.email;
   }
 
+  public getRoles(): string[] {
+    return this.roles;
+  }
   public getUsername(): Username {
     return this.username;
   }

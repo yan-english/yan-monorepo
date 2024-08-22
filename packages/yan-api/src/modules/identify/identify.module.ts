@@ -22,6 +22,7 @@ import { LoginHandler } from './application/user/command/login/loginHandler';
 import { LoginHttpController } from './application/user/command/login/login.http.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { IdentifyDomainService } from './domain/identify.domain-service';
+import { JwtService } from './domain/jwt.service';
 
 const repositories: Provider[] = [
   {
@@ -70,6 +71,7 @@ const controllers: Type[] = [
     ...mappers,
     ...commandHandlers,
     IdentifyDomainService,
+    JwtService,
   ],
 })
 export class IdentifyModule {}

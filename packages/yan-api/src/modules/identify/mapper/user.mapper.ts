@@ -11,6 +11,7 @@ export class UserMapper implements Mapper<User, UserEntity> {
       new Id(record.id),
       new Email(record.email),
       new Password(record.password, record.salt),
+      [],
     );
   }
 

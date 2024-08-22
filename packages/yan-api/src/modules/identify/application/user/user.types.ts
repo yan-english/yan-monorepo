@@ -10,3 +10,8 @@ export interface CreateUserProps {
   username: string;
   password: string;
 }
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}

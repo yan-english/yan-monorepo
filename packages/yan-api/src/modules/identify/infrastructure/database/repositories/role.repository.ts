@@ -1,7 +1,7 @@
 import { RoleRepositoryPort } from '../../../application/role/role.repository.port';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleEntity } from '../entities/role.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Role } from '../../../domain/entities/role';
 import { RoleMapper } from '../../../mapper/role.mapper';
 import { Inject } from '@nestjs/common';
@@ -36,6 +36,10 @@ export class RoleRepository implements RoleRepositoryPort {
     const roleEntity = await this.roleRepository.findOne({ where: { name } });
     const roleMapper = new RoleMapper();
     return roleEntity ? roleMapper.toDomain(roleEntity) : null;
+  }
+
+  async findBy(listName: string[]): Promise<RoleEntity[]> {
+    return await this.roleRepository.findBy({ name: In(listName) });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
