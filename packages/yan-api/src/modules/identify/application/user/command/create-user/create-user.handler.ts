@@ -9,7 +9,7 @@ import { Id } from '../../../../domain/value-objects/id.vo';
 import { USER_REPOSITORY } from '../../../../infrastructure/di/user.di-tokens';
 
 @CommandHandler(CreateUserCommand)
-export class CreateUserService implements ICommandHandler<CreateUserCommand> {
+export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
     @Inject(USER_REPOSITORY)
     private readonly userRepository: UserRepositoryPort,

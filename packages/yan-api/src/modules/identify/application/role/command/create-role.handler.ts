@@ -6,7 +6,7 @@ import { Inject } from '@nestjs/common';
 import { ROLE_REPOSITORY } from '../../../infrastructure/di/role.di-tokens';
 
 @CommandHandler(CreateRoleCommand)
-export class CreateRoleService implements ICommandHandler<CreateRoleCommand> {
+export class CreateRoleHandler implements ICommandHandler<CreateRoleCommand> {
   constructor(
     @Inject(ROLE_REPOSITORY)
     private readonly roleRepository: RoleRepositoryPort,

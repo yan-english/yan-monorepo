@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { IdentifyModule } from './modules/identify/identify.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './modules/identify/infrastructure/database/config/db/database.module';
-import { JwtModule } from '@nestjs/jwt';
 
 const modules = [IdentifyModule];
 @Module({
@@ -14,10 +13,6 @@ const modules = [IdentifyModule];
       isGlobal: true,
     }),
     DatabaseModule,
-    JwtModule.register({
-      secret: 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: '1h' }, // Example expiration time
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

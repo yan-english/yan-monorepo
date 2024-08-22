@@ -1,4 +1,4 @@
-import { CommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LoginCommand } from './login.command';
 import { Inject } from '@nestjs/common';
 import { USER_REPOSITORY } from '../../../../infrastructure/di/user.di-tokens';
@@ -6,7 +6,7 @@ import { UserRepositoryPort } from '../../user.repository.port';
 import { IdentifyDomainService } from '../../../../domain/identify.domain-service';
 
 @CommandHandler(LoginCommand)
-export class LoginService {
+export class LoginHandler implements ICommandHandler<LoginCommand> {
   constructor(
     @Inject(USER_REPOSITORY)
     private readonly userRepository: UserRepositoryPort,
