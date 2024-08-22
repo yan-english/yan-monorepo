@@ -13,8 +13,8 @@ export class RoleEntity {
   @Column()
   description: string;
 
-  @OneToMany(() => UserRoleEntity, (userRole) => userRole.role)
-  userRoles: UserRoleEntity[];
+  // @OneToMany(() => UserRoleEntity, (userRole) => userRole.role)
+  // userRoles: UserRoleEntity[];
 
   @OneToMany(
     () => RolePermissionEntity,

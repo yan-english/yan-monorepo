@@ -10,6 +10,6 @@ export class UserRoleEntity {
   @ManyToOne(() => UserEntity, (user) => user.userRoles)
   user: UserEntity;
 
-  @ManyToOne(() => RoleEntity, (role) => role.userRoles)
+  @ManyToOne(() => RoleEntity)
   role: RoleEntity;
 }
