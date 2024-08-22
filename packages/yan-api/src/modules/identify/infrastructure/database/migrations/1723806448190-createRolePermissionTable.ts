@@ -6,7 +6,7 @@ export class CreateRolePermissionTable1723806448190
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
             CREATE TABLE role_permissions (
-                id VARCHAR(255) PRIMARY KEY,
+                id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
                 role_id VARCHAR(255) NOT NULL,
                 permission_id VARCHAR(255) NOT NULL,
                 FOREIGN KEY (role_id) REFERENCES roles(id),
