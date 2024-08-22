@@ -22,7 +22,9 @@ export class UserEntity {
   @Column()
   gender: string;
 
-  @OneToMany(() => UserRoleEntity, (userRole) => userRole.user)
+  @OneToMany(() => UserRoleEntity, (userRole) => userRole.user, {
+    cascade: true,
+  })
   userRoles: UserRoleEntity[];
 
   @Column()
