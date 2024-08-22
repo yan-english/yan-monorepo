@@ -1,7 +1,6 @@
 export type AggregateID = string;
 
 export abstract class Entity<ID> {
-
   protected id: ID;
 
   public getId(): ID {
@@ -11,5 +10,4 @@ export abstract class Entity<ID> {
   public setId(id: ID): void {
     this.id = id;
   }
-
 }
