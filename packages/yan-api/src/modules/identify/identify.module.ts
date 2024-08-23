@@ -23,6 +23,9 @@ import { LoginHttpController } from './application/user/command/login/login.http
 import { JwtModule } from '@nestjs/jwt';
 import { IdentifyDomainService } from './domain/identify.domain-service';
 import { JwtService } from './domain/jwt.service';
+import { CacheModule } from '@nestjs/cache-manager';
+import { RedisClientOptions } from 'redis';
+import { redisStore } from 'cache-manager-redis-store';
 
 const repositories: Provider[] = [
   {
@@ -53,6 +56,11 @@ const controllers: Type[] = [
 @Module({
   imports: [
     CqrsModule,
+    CacheModule.register(<RedisClientOptions>{
+      store: redisStore,
+      host: 'localhost',
+      port: 6379,
+    }),
     TypeOrmModule.forFeature([
       UserEntity,
       RoleEntity,

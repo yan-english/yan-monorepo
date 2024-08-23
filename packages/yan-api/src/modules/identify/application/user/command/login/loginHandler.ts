@@ -5,6 +5,7 @@ import { USER_REPOSITORY } from '../../../../infrastructure/di/user.di-tokens';
 import { UserRepositoryPort } from '../../user.repository.port';
 import { IdentifyDomainService } from '../../../../domain/identify.domain-service';
 import { LoginResponse } from '../../user.types';
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {
@@ -12,6 +13,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
     @Inject(USER_REPOSITORY)
     private readonly userRepository: UserRepositoryPort,
     private readonly identifyService: IdentifyDomainService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async execute(command: LoginCommand): Promise<LoginResponse> {
@@ -32,6 +34,11 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
 
     const accessToken = this.identifyService.generateAccessToken(user);
     const refreshToken = this.identifyService.generateRefreshToken();
+    await this.cacheManager.set(
+      `${REFRESH_TOKEN_PREFIX}${user.id}`,
+      refreshToken,
+      60 * 60 * 24 * 30,
+    );
 
     return { accessToken: accessToken, refreshToken: refreshToken };
   }

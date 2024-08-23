@@ -15,8 +15,6 @@ export class IdentifyDomainService {
       sub: user.id,
       roles: user.userRoles.map((role) => role.role.name),
     };
-    // const expiryDate = new Date(Date.now() + 3600 * 1000); // 1 hour
-
     return this.jwtService.sign(payload);
   }
 

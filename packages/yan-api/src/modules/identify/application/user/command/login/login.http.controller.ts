@@ -7,7 +7,6 @@ import { LoginResponse } from '../../user.types';
 @Controller('auth')
 export class LoginHttpController {
   constructor(private readonly commandBus: CommandBus) {}
-
   @Post('/login')
   async login(
     @Body() body: { email: string; password: string },
