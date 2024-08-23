@@ -4,8 +4,8 @@ import { RoleRepositoryPort } from '../role.repository.port';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { ROLE_REPOSITORY } from '../../../infrastructure/di/role.di-tokens';
-import {RoleEntity} from "../../../infrastructure/database/entities/role.entity";
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { RoleEntity } from '../../../infrastructure/database/entities/role.entity';
 
 @CommandHandler(CreateRoleCommand)
 export class CreateRoleHandler implements ICommandHandler<CreateRoleCommand> {
@@ -23,9 +23,9 @@ export class CreateRoleHandler implements ICommandHandler<CreateRoleCommand> {
     );
 
     const roleEntity: RoleEntity = await this.roleRepository.createRole(role);
-    const permissions = roleEntity.rolePermissions.map(rp => rp.permission);
+    const permissions = roleEntity.rolePermissions.map((rp) => rp.permission);
     await this.cacheManager.set(roleEntity.name, permissions);
 
-    return await this.roleRepository.createRole(role);
+    return roleEntity.id;
   }
 }
