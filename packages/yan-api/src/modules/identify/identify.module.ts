@@ -81,5 +81,6 @@ const controllers: Type[] = [
     IdentifyDomainService,
     JwtService,
   ],
+  exports: [JwtService],
 })
 export class IdentifyModule {}

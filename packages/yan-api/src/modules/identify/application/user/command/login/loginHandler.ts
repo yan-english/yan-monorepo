@@ -6,6 +6,7 @@ import { UserRepositoryPort } from '../../user.repository.port';
 import { IdentifyDomainService } from '../../../../domain/identify.domain-service';
 import { LoginResponse } from '../../user.types';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { REFRESH_TOKEN_PREFIX } from '../../../../../../commons/application/constants';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {

@@ -1,2 +1,2 @@
-const REFRESH_TOKEN_PREFIX = 'refresh_token:';
-const PERMISSIONS_PREFIX = 'permissions:';
+export const REFRESH_TOKEN_PREFIX = 'refresh_token:';
+export const PERMISSIONS_PREFIX = 'permissions:';
