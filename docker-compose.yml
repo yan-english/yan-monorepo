@@ -5,7 +5,7 @@ services:
     container_name: postgres-container
     image: postgres:alpine
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: 'user'
       POSTGRES_PASSWORD: 'password'
@@ -15,8 +15,20 @@ services:
     networks:
       - postgres
 
+  redis:
+    container_name: redis-container
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_PASSWORD: 'password'
+    networks:
+      - redis
+
 networks:
   postgres:
+    driver: bridge
+  redis:
     driver: bridge
 
 volumes:

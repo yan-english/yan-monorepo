@@ -17,7 +17,7 @@ export class LoginHttpController {
     );
 
     return new BaseResponse<LoginResponse>(
-      '',
+      'SUCCESS',
       'User logged in successfully',
       data,
     );
