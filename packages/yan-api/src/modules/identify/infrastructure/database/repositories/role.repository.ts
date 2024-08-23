@@ -17,7 +17,7 @@ export class RoleRepository implements RoleRepositoryPort {
     private readonly permissionRepository: PermissionRepository,
   ) {}
 
-  async createRole(role: Role): Promise<void> {
+  async createRole(role: Role): Promise<RoleEntity> {
     const roleMapper = new RoleMapper();
     const roleEntity = roleMapper.toPersistence(role);
     const permissions = await this.permissionRepository.findBy(
@@ -30,6 +30,8 @@ export class RoleRepository implements RoleRepositoryPort {
       return rolePermissionEntity;
     });
     await this.roleRepository.save(roleEntity);
+
+    return roleEntity;
   }
 
   async findByName(name: string): Promise<Role> {
