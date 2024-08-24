@@ -1,13 +1,13 @@
-import { CreateRoleRequest } from './create-role.request';
+import { CreateRoleRequestDto } from './create-role.request.dto';
 
 export class CreateRoleCommand {
   readonly name: string;
-  readonly permissionIds: string[];
+  readonly permissions: string[];
   readonly description: string;
 
-  constructor(props: CreateRoleRequest) {
+  constructor(props: CreateRoleRequestDto) {
     this.name = props.name;
-    this.permissionIds = props.permissionIds;
+    this.permissions = props.permissions;
     this.description = props.description;
   }
 }

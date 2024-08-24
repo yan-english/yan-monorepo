@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateRoleRequest {
+export class CreateRoleRequestDto {
   @ApiProperty({ description: 'Name of the role', example: 'Admin' })
   readonly name: string;
 
   @ApiProperty({
-    description: 'List of permission IDs associated with the role',
-    example: ['1', '2', '3'],
+    description: 'List of permission name associated with the role',
+    example: ['Manage users', 'Manage roles'],
   })
-  readonly permissionIds: string[];
+  readonly permissions: string[];
 
   @ApiProperty({
     description: 'Description of the role',
@@ -16,9 +16,9 @@ export class CreateRoleRequest {
   })
   readonly description: string;
 
-  constructor(name: string, permissionIds: string[], description: string) {
+  constructor(name: string, permissions: string[], description: string) {
     this.name = name;
-    this.permissionIds = permissionIds;
+    this.permissions = permissions;
     this.description = description;
   }
 }

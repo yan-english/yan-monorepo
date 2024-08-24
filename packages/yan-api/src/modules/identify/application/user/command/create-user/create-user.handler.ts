@@ -20,6 +20,11 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   ): Promise<Result<Id, UserAlreadyExistsException>> {
     const user = User.create(command);
 
+    const userEntity = await this.userRepository.findByEmail(command.email);
+    if (userEntity) {
+      throw new ConflictException('User already exists');
+    }
+
     // TODO: Need to implement transaction here to ensure that the user is saved to the database
     try {
       await this.userRepository.createUser(user);

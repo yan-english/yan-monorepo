@@ -1,9 +1,11 @@
+import { BadRequestException } from '@nestjs/common';
+
 export class Email {
   private readonly value: string;
 
   constructor(value: string) {
     if (!this.validate(value)) {
-      throw new Error('Invalid email');
+      throw new BadRequestException('Invalid email');
     }
     this.value = value;
   }

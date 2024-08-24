@@ -24,8 +24,9 @@
     "schema:log": "typeorm-ts-node-commonjs -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts schema:log",
     "migration:revert": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts",
     "schema:drop": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts",
-    "seed:permissions": "npx ts-node -r tsconfig-paths/register ./src/modules/identify/infrastructure/database/seeds/run-seeder.ts",
-    "permissions:seed": "ts-node -r tsconfig-paths/register --project ./tsconfig.json ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts --name src/modules/identify/infrastructure/database/seeds/permission.seeder.ts"
+    "data:seed": "npx ts-node -r tsconfig-paths/register ./src/modules/identify/infrastructure/database/seeds/run-seeder.ts",
+    "permissions:seed": "ts-node -r tsconfig-paths/register --project ./tsconfig.json ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d ./src/modules/identify/infrastructure/database/config/db/data-source.ts --name src/modules/identify/infrastructure/database/seeds/permission.seeder.ts",
+    "permissions:update": "pnpm run schema:drop && pnpm run migration:run && pnpm run data:seed"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.2.2",

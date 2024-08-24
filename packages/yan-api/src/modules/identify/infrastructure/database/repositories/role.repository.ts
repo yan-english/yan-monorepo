@@ -42,18 +42,16 @@ export class RoleRepository implements RoleRepositoryPort {
   }
 
   async findByName(name: string): Promise<Role> {
-    const roleEntity = await this.roleRepository.findOne({ where: { name } });
+    const roleEntity = await this.roleRepository.findOne({
+      where: { name },
+      relations: ['rolePermissions', 'rolePermissions.permission'],
+    });
     const roleMapper = new RoleMapper();
     return roleEntity ? roleMapper.toDomain(roleEntity) : null;
   }
 
   async findBy(listName: string[]): Promise<RoleEntity[]> {
     return await this.roleRepository.findBy({ name: In(listName) });
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  transaction<T>(handler: () => Promise<T>): Promise<T> {
-    return Promise.resolve(undefined);
   }
 
   async findAll(query: GetListRolesQuery): Promise<RoleEntity[]> {
