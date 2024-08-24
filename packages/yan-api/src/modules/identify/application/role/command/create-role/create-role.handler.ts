@@ -1,12 +1,12 @@
 import { CreateRoleCommand } from './create-role.command';
-import { Role } from '../../../domain/entities/role';
-import { RoleRepositoryPort } from '../role.repository.port';
+import { Role } from '../../../../domain/entities/role';
+import { RoleRepositoryPort } from '../../role.repository.port';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
-import { ROLE_REPOSITORY } from '../../../infrastructure/di/role.di-tokens';
+import { ROLE_REPOSITORY } from '../../../../infrastructure/di/role.di-tokens';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { RoleEntity } from '../../../infrastructure/database/entities/role.entity';
-import { PERMISSIONS_PREFIX } from '../../../../../commons/application/constants';
+import { RoleEntity } from '../../../../infrastructure/database/entities/role.entity';
+import { PERMISSIONS_PREFIX } from '../../../../../../commons/application/constants';
 
 @CommandHandler(CreateRoleCommand)
 export class CreateRoleHandler implements ICommandHandler<CreateRoleCommand> {

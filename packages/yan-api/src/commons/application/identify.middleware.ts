@@ -7,6 +7,7 @@ import {
   PermissionEntity,
   ServerAction,
 } from '../../modules/identify/infrastructure/database/entities/permission.entity';
+import { parse } from 'url';
 
 @Injectable()
 export class IdentifyMiddleware implements NestMiddleware {
@@ -43,14 +44,15 @@ export class IdentifyMiddleware implements NestMiddleware {
           (permission): permission is PermissionEntity => permission !== null,
         )
         .flat();
-      const url = req.originalUrl;
+      const parsedUrl = parse(req.originalUrl);
+      const endpoint = parsedUrl.pathname;
 
       const hasPermission = listPermissionsOfUser.some((permission) => {
         const servers: ServerAction[] = permission.server;
         return servers?.some((server) => {
           const routes = server.routes;
           return routes?.some((route) => {
-            return route === url && server.action === req.method;
+            return endpoint.includes(route) && server.action === req.method;
           });
         });
       });
