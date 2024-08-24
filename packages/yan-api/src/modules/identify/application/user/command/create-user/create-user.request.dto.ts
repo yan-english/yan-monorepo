@@ -8,8 +8,9 @@ export class CreateUserRequestDto {
   readonly email: string;
 
   @ApiProperty({
-    description: 'Password of the new user',
-    example: 'strong_password_123',
+    description:
+      'Password of the new user, the rules: at least one digit, one lowercase letter, one uppercase letter, and a minimum length of 8 characters',
+    example: 'Text@1234',
   })
   readonly password: string;
 

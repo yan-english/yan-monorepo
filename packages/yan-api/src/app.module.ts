@@ -13,6 +13,7 @@ import { redisStore } from 'cache-manager-redis-store';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { IdentifyMiddleware } from './commons/application/identify.middleware';
+import { RoleCacheService } from './commons/third-party/redis/redis.service';
 
 const modules = [IdentifyModule, DatabaseModule];
 
@@ -29,7 +30,7 @@ const modules = [IdentifyModule, DatabaseModule];
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RoleCacheService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
