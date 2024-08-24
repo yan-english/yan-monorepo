@@ -7,36 +7,36 @@ import { randomUUID } from 'crypto';
 export class Role extends AggregateRoot<Id> {
   private readonly name: RoleName;
   private readonly description: RoleDescription;
-  private readonly permissionIds: string[];
+  private readonly permissions: string[];
 
   constructor(
     id: Id,
     name: RoleName,
     description: RoleDescription,
-    permissionIds: string[],
+    permissions: string[],
   ) {
     super();
     this.id = id;
     this.name = name;
     this.description = description;
-    this.permissionIds = permissionIds;
+    this.permissions = permissions;
   }
 
   static create(
     name: string,
     description: string,
-    permissionIds: string[],
+    permissions: string[],
   ): Role {
     // Need to use snowflake instead of UUID here
     const id = new Id(randomUUID());
     const roleName = new RoleName(name);
     const roleDescription = new RoleDescription(description);
 
-    return new Role(id, roleName, roleDescription, permissionIds);
+    return new Role(id, roleName, roleDescription, permissions);
   }
 
   public getPermissions(): string[] {
-    return this.permissionIds;
+    return this.permissions;
   }
 
   public getName(): RoleName {

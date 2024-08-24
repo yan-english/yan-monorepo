@@ -30,12 +30,6 @@ export class UserRepository implements UserRepositoryPort {
     await this.userRepository.save(user);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  transaction<T>(handler: () => Promise<T>): Promise<T> {
-    //TODO
-    return Promise.resolve(undefined);
-  }
-
   async findByEmail(email: string): Promise<UserEntity> {
     return this.userRepository.findOne({
       where: { email },

@@ -5,6 +5,7 @@ export class GetListRolesRequestDto {
     example: 1,
     description: 'Page number for pagination',
     default: 1,
+    required: false,
   })
   page: number = 1;
 
@@ -12,6 +13,7 @@ export class GetListRolesRequestDto {
     example: 10,
     description: 'Number of items per page',
     default: 10,
+    required: false,
   })
   limit: number = 10;
 
@@ -20,6 +22,7 @@ export class GetListRolesRequestDto {
     description: 'Sort order',
     enum: ['ASC', 'DESC'],
     default: 'ASC',
+    required: false,
   })
   sort: 'ASC' | 'DESC' = 'ASC';
 

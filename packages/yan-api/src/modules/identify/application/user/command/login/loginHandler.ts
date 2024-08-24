@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LoginCommand } from './login.command';
-import { Inject } from '@nestjs/common';
+import { BadRequestException, Inject } from '@nestjs/common';
 import { USER_REPOSITORY } from '../../../../infrastructure/di/user.di-tokens';
 import { UserRepositoryPort } from '../../user.repository.port';
 import { IdentifyDomainService } from '../../../../domain/identify.domain-service';
@@ -21,7 +21,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
     const user = await this.userRepository.findByEmail(command.email);
 
     if (!user) {
-      throw new Error('User does not exist');
+      throw new BadRequestException('The user does not exist');
     }
 
     const isCorrectPassword = this.identifyService.verifyPassword(
@@ -30,7 +30,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
       user.password,
     );
     if (!isCorrectPassword) {
-      throw new Error('Password is incorrect');
+      throw new BadRequestException('Password is incorrect');
     }
 
     const accessToken = this.identifyService.generateAccessToken(user);

@@ -8,8 +8,8 @@ const permissionData = [
         routes: ['/users', '/users/:id', '/users/:id/profile'],
       },
       { action: 'CREATE', routes: ['/users'] },
-      { action: 'EDIT', routes: ['/users', '/users/:id'] },
-      { action: 'REMOVE', routes: ['/users', '/users/:id'] },
+      { action: 'EDIT', routes: ['/users', '/users'] },
+      { action: 'REMOVE', routes: ['/users', '/users'] },
     ],
     server: [
       {
@@ -27,16 +27,16 @@ const permissionData = [
     client: [
       {
         action: 'VIEW',
-        routes: ['/roles', '/roles/:id'],
+        routes: ['/roles', '/roles', '/permissions'],
       },
       { action: 'CREATE', routes: ['/roles'] },
-      { action: 'EDIT', routes: ['/roles', '/roles/:id'] },
-      { action: 'REMOVE', routes: ['/roles', '/roles/:id'] },
+      { action: 'EDIT', routes: ['/roles', '/roles'] },
+      { action: 'REMOVE', routes: ['/roles', '/roles'] },
     ],
     server: [
       {
         action: 'GET',
-        routes: ['/roles', '/roles/:id'],
+        routes: ['/roles', '/roles/:id', '/permissions'],
       },
       { action: 'POST', routes: ['/roles'] },
       { action: 'PUT', routes: ['/roles/:id'] },
