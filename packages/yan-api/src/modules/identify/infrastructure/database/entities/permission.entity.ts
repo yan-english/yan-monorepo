@@ -1,12 +1,12 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { RolePermissionEntity } from './role-permission.entity';
 
-interface ClientAction {
+export interface ClientAction {
   action: string;
   routes: string[];
 }
 
-interface ServerAction {
+export interface ServerAction {
   action: string;
   routes: string[];
 }

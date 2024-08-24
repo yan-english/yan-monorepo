@@ -1,7 +1,7 @@
 const permissionData = [
   {
     id: '1',
-    name: 'users',
+    name: 'Manage Users',
     client: [
       {
         action: 'VIEW',
@@ -19,6 +19,28 @@ const permissionData = [
       { action: 'POST', routes: ['/users'] },
       { action: 'PUT', routes: ['/users/:id'] },
       { action: 'DELETE', routes: ['/users/:id'] },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Manage Roles',
+    client: [
+      {
+        action: 'VIEW',
+        routes: ['/roles', '/roles/:id'],
+      },
+      { action: 'CREATE', routes: ['/roles'] },
+      { action: 'EDIT', routes: ['/roles', '/roles/:id'] },
+      { action: 'REMOVE', routes: ['/roles', '/roles/:id'] },
+    ],
+    server: [
+      {
+        action: 'GET',
+        routes: ['/roles', '/roles/:id'],
+      },
+      { action: 'POST', routes: ['/roles'] },
+      { action: 'PUT', routes: ['/roles/:id'] },
+      { action: 'DELETE', routes: ['/roles/:id'] },
     ],
   },
 ];
