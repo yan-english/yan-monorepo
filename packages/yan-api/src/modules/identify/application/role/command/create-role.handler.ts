@@ -28,6 +28,7 @@ export class CreateRoleHandler implements ICommandHandler<CreateRoleCommand> {
     await this.cacheManager.set(
       `${PERMISSIONS_PREFIX}${roleEntity.name}`,
       permissions,
+      60 * 60 * 24 * 30,
     );
 
     return roleEntity.id;
