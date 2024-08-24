@@ -4,6 +4,7 @@ import { UserEntity } from '../infrastructure/database/entities/user.entity';
 import { Email } from '../domain/value-objects/email.vo';
 import { Password } from '../domain/value-objects/password.vo';
 import { Id } from '../domain/value-objects/id.vo';
+import { GetUserInfoResponseDto } from '../application/user/query/get-user-info/get-user-info.response.dto';
 
 export class UserMapper implements Mapper<User, UserEntity> {
   toDomain(record: UserEntity): User {
@@ -31,5 +32,23 @@ export class UserMapper implements Mapper<User, UserEntity> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toResponse(entity: User) {
     return undefined;
+  }
+
+  toResponseUserInfo(entity: UserEntity): GetUserInfoResponseDto {
+    const listRoles = entity.userRoles.map((role) => role.role.name);
+    const listPermissions = entity.userRoles.map((role) =>
+      role.role.rolePermissions.map(
+        (rolePermission) => rolePermission.permission,
+      ),
+    );
+    return {
+      id: entity.id,
+      username: entity.username,
+      email: entity.email,
+      dateOfBirth: entity.dateOfBirth,
+      gender: entity.gender,
+      listPermissions: listPermissions,
+      listRoles: listRoles,
+    };
   }
 }

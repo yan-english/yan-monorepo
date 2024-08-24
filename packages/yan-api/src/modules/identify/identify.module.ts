@@ -10,8 +10,8 @@ import { UserEntity } from './infrastructure/database/entities/user.entity';
 import { RoleRepository } from './infrastructure/database/repositories/role.repository';
 import { PermissionRepository } from './infrastructure/database/repositories/permission.repository';
 import { RoleMapper } from './mapper/role.mapper';
-import { CreateRoleHandler } from './application/role/command/create-role.handler';
-import { CreateRoleHttpController } from './application/role/command/create-role.http.controller';
+import { CreateRoleHandler } from './application/role/command/create-role/create-role.handler';
+import { CreateRoleHttpController } from './application/role/command/create-role/create-role.http.controller';
 import { ROLE_REPOSITORY } from './infrastructure/di/role.di-tokens';
 import { PERMISSION_REPOSITORY } from './infrastructure/di/permission.di-tokens';
 import { RoleEntity } from './infrastructure/database/entities/role.entity';
@@ -26,6 +26,10 @@ import { JwtService } from './domain/jwt.service';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { redisStore } from 'cache-manager-redis-store';
+import { GetListRolesHandler } from './application/role/query/get-list-roles/get-list-roles.handler';
+import { GetListRolesHttpController } from './application/role/query/get-list-roles/get-list-roles.http.controller';
+import { GetUserInfoHttpController } from './application/user/query/get-user-info/get-user-info.http.controller';
+import { GetUserInfoHandler } from './application/user/query/get-user-info/get-user-info.handler';
 
 const repositories: Provider[] = [
   {
@@ -47,10 +51,13 @@ const commandHandlers: Provider[] = [
   CreateRoleHandler,
   LoginHandler,
 ];
+const queryHandlers: Provider[] = [GetListRolesHandler, GetUserInfoHandler];
 const controllers: Type[] = [
   CreateUserHttpController,
   CreateRoleHttpController,
   LoginHttpController,
+  GetListRolesHttpController,
+  GetUserInfoHttpController,
 ];
 
 @Module({
@@ -70,7 +77,7 @@ const controllers: Type[] = [
     ] as any),
     JwtModule.register({
       secret: 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: '1h' }, // Example expiration time
+      signOptions: { expiresIn: '100h' }, // Example expiration time
     }),
   ],
   controllers: [...controllers],
@@ -78,6 +85,7 @@ const controllers: Type[] = [
     ...repositories,
     ...mappers,
     ...commandHandlers,
+    ...queryHandlers,
     IdentifyDomainService,
     JwtService,
   ],

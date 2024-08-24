@@ -6,4 +6,6 @@ export interface UserRepositoryPort extends RepositoryPort<User> {
   createUser(user: User): Promise<void>;
 
   findByEmail(email: string): Promise<UserEntity>;
+
+  findOneById(id: string): Promise<UserEntity>;
 }

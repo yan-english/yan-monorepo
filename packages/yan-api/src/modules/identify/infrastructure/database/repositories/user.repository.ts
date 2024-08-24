@@ -42,4 +42,16 @@ export class UserRepository implements UserRepositoryPort {
       relations: ['userRoles', 'userRoles.role'],
     });
   }
+
+  findOneById(id: string): Promise<UserEntity> {
+    return this.userRepository.findOne({
+      where: { id: id },
+      relations: [
+        'userRoles',
+        'userRoles.role',
+        'userRoles.role.rolePermissions',
+        'userRoles.role.rolePermissions.permission',
+      ],
+    });
+  }
 }
