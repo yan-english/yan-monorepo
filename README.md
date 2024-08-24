@@ -9,7 +9,7 @@ This project consists of two main parts: `yan-web` and `yan-api`.
 ## Prerequisites
 - Node.js (version 16.x or higher)
 - pnpm (version 8.x or higher)
-
+- Docker
 ## Installation
 1. Clone the repository:
     ```sh
