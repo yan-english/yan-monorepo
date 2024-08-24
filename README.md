@@ -33,9 +33,9 @@ pnpm run web:dev
 1. Cd to yan-api folder and create a `.env` file in the `yan-api` directory with the content based on the `.env.example` file.
 
 
-2. Run docker-compose to start the database:
+2. Run docker compose file to start the depens servives such as the dabase and the caching:
 ```bash
- docker-compose up -d
+ docker compose up -d
 ```
 
 3. Seed data to the database:
