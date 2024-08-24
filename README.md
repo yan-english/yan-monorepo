@@ -35,7 +35,7 @@ pnpm run web:dev
 
 2. Run docker-compose to start the database:
 ```bash
-$ docker-compose up -d
+ docker-compose up -d
 ```
 
 3. Seed data to the database:
@@ -45,7 +45,7 @@ pnpm run init-data:seed
 4. Start the API server:
 
 ```bash
-$ pnpm run start:dev
+ pnpm run start:dev
 ```
 
 5. See the API documentation at `http://localhost:3000/docs`.
