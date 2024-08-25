@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetListUsersQuery } from './get-list-users.query';
 import { GetListUsersRequestDto, SortDto } from './get-list-users.request.dto';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BaseResponse } from '../../../../../../commons/application/base-reponse.dto';
 
 @ApiTags('users')
@@ -11,6 +11,7 @@ export class GetListUsersHttpController {
   constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get list of users' })
   @ApiQuery({
     name: 'page',
     required: false,
@@ -33,7 +34,7 @@ export class GetListUsersHttpController {
     name: 'text',
     required: false,
     type: String,
-    description: 'Search text',
+    description: 'Search text for both fields username and email',
   })
   @ApiResponse({
     status: 200,
