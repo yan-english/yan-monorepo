@@ -32,6 +32,8 @@ import { GetUserInfoHttpController } from './application/user/query/get-user-inf
 import { GetUserInfoHandler } from './application/user/query/get-user-info/get-user-info.handler';
 import { GetPermissionsHandler } from './application/permission/command/get-permissions/get-permissions.handler';
 import { GetPermissionsHttpController } from './application/permission/command/get-permissions/get-permissions.http.controller';
+import { GetListUsersHttpController } from './application/user/query/get-list-users/get-list-users.http.controller';
+import { GetListUsersHandler } from './application/user/query/get-list-users/get-list-users.handler';
 
 const repositories: Provider[] = [
   {
@@ -57,6 +59,7 @@ const queryHandlers: Provider[] = [
   GetListRolesHandler,
   GetUserInfoHandler,
   GetPermissionsHandler,
+  GetListUsersHandler,
 ];
 const controllers: Type[] = [
   CreateUserHttpController,
@@ -65,6 +68,7 @@ const controllers: Type[] = [
   GetListRolesHttpController,
   GetUserInfoHttpController,
   GetPermissionsHttpController,
+  GetListUsersHttpController,
 ];
 
 @Module({

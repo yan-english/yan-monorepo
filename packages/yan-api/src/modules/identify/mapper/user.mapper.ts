@@ -51,4 +51,18 @@ export class UserMapper implements Mapper<User, UserEntity> {
       listRoles: listRoles,
     };
   }
+
+  toResponseListUsers(entities: UserEntity[]): any {
+    return entities.map((entity) => {
+      return {
+        id: entity.id,
+        email: entity.email,
+        username: entity.username,
+        dateOfBirth: entity.dateOfBirth,
+        gender: entity.gender,
+        listPermissions: [],
+        listRoles: [],
+      };
+    });
+  }
 }

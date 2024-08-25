@@ -8,5 +8,5 @@ export interface RoleRepositoryPort extends RepositoryPort<Role> {
   findByName(name: string): Promise<Role>;
   findOneById(id: string): Promise<RoleEntity>;
 
-  findAll(request: GetListRolesQuery): Promise<RoleEntity[]>;
+  findAll(request: GetListRolesQuery): Promise<any>;
 }

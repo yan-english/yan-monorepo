@@ -54,7 +54,7 @@ export class RoleRepository implements RoleRepositoryPort {
     return await this.roleRepository.findBy({ name: In(listName) });
   }
 
-  async findAll(query: GetListRolesQuery): Promise<RoleEntity[]> {
+  async findAll(query: GetListRolesQuery): Promise<any> {
     const { text, page, limit, sort } = query;
 
     const skip = (page - 1) * limit;
@@ -67,8 +67,8 @@ export class RoleRepository implements RoleRepositoryPort {
       relations: ['rolePermissions', 'rolePermissions.permission'],
     };
 
-    const [data] = await this.roleRepository.findAndCount(options);
-    return data;
+    const [data, count] = await this.roleRepository.findAndCount(options);
+    return { data, count };
   }
 
   async findOneById(id: string): Promise<RoleEntity> {
