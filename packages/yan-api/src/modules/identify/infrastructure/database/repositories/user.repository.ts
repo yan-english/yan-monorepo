@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindManyOptions, Like, Repository } from 'typeorm';
 import { UserRepositoryPort } from '../../../application/user/user.repository.port';
 import { User } from '../../../domain/entities/user';
 import { UserEntity } from '../entities/user.entity';
@@ -8,6 +8,7 @@ import { Inject } from '@nestjs/common';
 import { ROLE_REPOSITORY } from '../../di/role.di-tokens';
 import { RoleRepository } from './role.repository';
 import { UserRoleEntity } from '../entities/user-role.entity';
+import { GetListUsersQuery } from '../../../application/user/query/get-list-users/get-list-users.query';
 
 export class UserRepository implements UserRepositoryPort {
   constructor(
@@ -47,5 +48,25 @@ export class UserRepository implements UserRepositoryPort {
         'userRoles.role.rolePermissions.permission',
       ],
     });
+  }
+
+  async findAll(query: GetListUsersQuery): Promise<any> {
+    const { page, limit, sort, text } = query;
+
+    const skip = (page - 1) * limit;
+
+    // Build the query options
+    const options: FindManyOptions<UserEntity> = {
+      where: text
+        ? [{ username: Like(`%${text}%`) }, { email: Like(`%${text}%`) }]
+        : {},
+      order: sort,
+      skip: skip,
+      take: limit,
+    };
+
+    const [data, count] = await this.userRepository.findAndCount(options);
+
+    return { data, count };
   }
 }
