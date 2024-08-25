@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetListUsersQuery } from './get-list-users.query';
-import { GetListUsersRequestDto } from './get-list-users.request.dto';
+import { GetListUsersRequestDto, SortDto } from './get-list-users.request.dto';
 import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BaseResponse } from '../../../../../../commons/application/base-reponse.dto';
 
