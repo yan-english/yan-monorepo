@@ -48,5 +48,5 @@ pnpm run init-data:seed
  pnpm run start:dev
 ```
 
-5. See the API documentation at `http://localhost:3000/docs`.
+5. See the API documentation at `http://localhost:3000/docs`
 
