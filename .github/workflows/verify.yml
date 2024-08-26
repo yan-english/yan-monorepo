@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - pending
-  pull_request:
-    types: [opened, synchronize, reopened]
-
+      -
 jobs:
   verify:
     runs-on: ubuntu-latest
