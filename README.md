@@ -42,6 +42,11 @@ pnpm run web:dev
 ```bash
 pnpm run init-data:seed
 ```
+After ran the seed data, we have the admin account with the following information:
+  ```
+  email: admin@gmail.com
+  password: Admin@1234
+  ```
 4. Start the API server:
 
 ```bash
