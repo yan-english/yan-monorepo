@@ -35,6 +35,16 @@ spec:
                 secretKeyRef:
                   name: yan-api-secrets
                   key: DATABASE_NAME
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: yan-api-config
+                  key: DATABASE_HOST
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: yan-api-config
+                  key: DATABASE_PORT
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresql-storage
