@@ -3,7 +3,7 @@ name: Verify
 on:
   push:
     branches:
-      - pending
+      - main
 jobs:
   verify:
     runs-on: ubuntu-latest
