@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yan-api-deployment
+  labels:
+    app: yan-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: yan-api
+  template:
+    metadata:
+      labels:
+        app: yan-api
+    spec:
+      containers:
+        - name: yan-api
+          image: yan-api:latest
+          ports:
+            - containerPort: 3000
