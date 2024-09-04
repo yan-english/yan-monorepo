@@ -23,6 +23,7 @@
   },
     "include": [
       "src/**/*.ts",
-      "packages/yan-api/src/modules/identify/infrastructure/database/config/db/data-source.ts"
+      "packages/yan-api/src/modules/identify/infrastructure/database/config/db/data-source.ts",
+      "test/**/*"
     ],
 }
