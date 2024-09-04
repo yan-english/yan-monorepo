@@ -8,13 +8,17 @@
     "web:dev": "pnpm --filter yan-web run dev",
     "web:build": "pnpm --filter yan-web run build",
     "api:dev": "pnpm --filter yan-api run start:dev",
-    "api:build": "pnpm --filter yan-api run build"
+    "api:build": "pnpm --filter yan-api run build",
+    "lint": "pnpm --filter yan-api run lint && pnpm --filter yan-web run lint",
+    "test": "pnpm run test --recursive"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.3.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6"
   }
 }
