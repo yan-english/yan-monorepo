@@ -1,12 +1,13 @@
+<!-- Thank you for contributing! -->
 # Pull Request
 
 ## Description
 
-Please include a summary of the changes and the related issue. Please also include relevant motivation and context.
+<!--Please include a summary of the changes and the related issue. Please also include relevant motivation and context. -->
 
 ## Type of change
 
-Please choose options that are related to this PR
+<!-- Please choose options that are related to this PR -->
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
