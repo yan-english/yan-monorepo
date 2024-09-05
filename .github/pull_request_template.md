@@ -6,7 +6,7 @@ Please include a summary of the changes and the related issue. Please also inclu
 
 ## Type of change
 
-Please choose options that are related to this PR.
+Please choose options that are related to this PR
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
