@@ -18,7 +18,7 @@ import { RoleEntity } from './infrastructure/database/entities/role.entity';
 import { PermissionEntity } from './infrastructure/database/entities/permission.entity';
 import { RolePermissionEntity } from './infrastructure/database/entities/role-permission.entity';
 import { UserRoleEntity } from './infrastructure/database/entities/user-role.entity';
-import { LoginHandler } from './application/user/command/login/loginHandler';
+import { LoginHandler } from './application/user/command/login/login.handler';
 import { LoginHttpController } from './application/user/command/login/login.http.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { IdentifyDomainService } from './domain/identify.domain-service';
@@ -87,8 +87,8 @@ const controllers: Type[] = [
       UserRoleEntity,
     ] as any),
     JwtModule.register({
-      secret: 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: '100h' }, // Example expiration time
+      secret: process.env.JWT_SECRET || 'yan-flashcards', // Replace with an environment variable in production
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '100h' }, // Example expiration time
     }),
   ],
   controllers: [...controllers],
