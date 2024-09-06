@@ -1,4 +1,10 @@
-import { Body, ConflictException, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Logger,
+  Post,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateUserRequestDto } from './create-user.request.dto';
 import { CreateUserCommand } from './create-user.command';
@@ -11,6 +17,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('users')
 @Controller('users')
 export class CreateUserHttpController {
+  private readonly logger = new Logger(CreateUserHttpController.name);
+
   constructor(private readonly commandBus: CommandBus) {}
 
   @Post()
@@ -20,19 +28,30 @@ export class CreateUserHttpController {
   async createUser(
     @Body() createUserRequestDto: CreateUserRequestDto,
   ): Promise<BaseResponse<Id>> {
+    this.logger.log(
+      'CreateUser request received with body: ',
+      createUserRequestDto,
+    );
+
     const result: Result<Id, UserAlreadyExistsException> =
       await this.commandBus.execute(
         new CreateUserCommand(createUserRequestDto),
       );
 
-    //Decide what to return based on the result (apply matching pattern)
+    this.logger.log('CreateUser command executed');
+
+    // Decide what to return based on the result (apply matching pattern)
     return match(result, {
       Ok: (id: Id) => {
+        this.logger.log('User created successfully with ID: ' + id.value);
         return new BaseResponse<Id>('', 'User created successfully', id);
       },
       Err: (error): BaseResponse<any> => {
-        if (error instanceof UserAlreadyExistsException)
+        if (error instanceof UserAlreadyExistsException) {
+          this.logger.warn('User already exists: ' + error.message);
           throw new ConflictException(error.message);
+        }
+        this.logger.error('Error creating user: ', error);
         throw error;
       },
     });
