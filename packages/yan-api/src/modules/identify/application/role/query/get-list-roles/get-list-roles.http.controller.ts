@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Logger, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetListRolesRequestDto } from './get-list-roles.request.dto';
 import { GetListRolesQuery } from './get-list-roles.query';
@@ -9,6 +9,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('Roles')
 @Controller('roles')
 export class GetListRolesHttpController {
+  private readonly logger = new Logger(GetListRolesHttpController.name);
+
   constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
@@ -22,9 +24,20 @@ export class GetListRolesHttpController {
   async getRoles(
     @Query() getListRolesDto: GetListRolesRequestDto,
   ): Promise<BaseResponse<GetListRolesResponseDto>> {
+    this.logger.log(
+      'GetListRoles request received with data: ',
+      getListRolesDto,
+    );
+
     const data: GetListRolesResponseDto = await this.queryBus.execute(
       new GetListRolesQuery(getListRolesDto),
     );
+
+    this.logger.log(
+      'GetListRolesQuery executed successfully with data: ',
+      data,
+    );
+
     return new BaseResponse<GetListRolesResponseDto>(
       '',
       'Roles retrieved successfully',
