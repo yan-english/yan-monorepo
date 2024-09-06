@@ -5,8 +5,10 @@ import { Username } from '../value-objects/username.vo';
 import { Password } from '../value-objects/password.vo';
 import { CreateUserCommand } from '../../application/user/command/create-user/create-user.command';
 import { Email } from '../value-objects/email.vo';
+import { Logger } from '@nestjs/common';
 
 export class User extends AggregateRoot<Id> {
+  private readonly logger = new Logger(User.name);
   private readonly username: Username;
   private readonly password: Password;
   private readonly email: Email;
@@ -21,14 +23,20 @@ export class User extends AggregateRoot<Id> {
   }
 
   static create(create: CreateUserCommand): User {
+    const logger = new Logger(User.name);
+    logger.log('Creating a new User with data: ', create);
+
     // Need to use snowflake instead of UUID here
     const id = new Id(randomUUID());
     const email = new Email(create.email);
     const password = new Password(create.password);
     const roles = create.roles;
 
+    const user = new User(id, email, password, roles);
+    logger.log('User created successfully with ID: ', id);
+
     // We can publish an event here to notify that a user has been created
-    return new User(id, email, password, roles);
+    return user;
   }
 
   public getEmail(): Email {
@@ -38,6 +46,7 @@ export class User extends AggregateRoot<Id> {
   public getRoles(): string[] {
     return this.roles;
   }
+
   public getUsername(): Username {
     return this.username;
   }

@@ -3,8 +3,10 @@ import { Id } from '../value-objects/id.vo';
 import { RoleName } from '../value-objects/role-name.vo';
 import { RoleDescription } from '../value-objects/role-description.vo';
 import { randomUUID } from 'crypto';
+import { Logger } from '@nestjs/common';
 
 export class Role extends AggregateRoot<Id> {
+  private readonly logger = new Logger(Role.name);
   private readonly name: RoleName;
   private readonly description: RoleDescription;
   private readonly permissions: string[];
@@ -27,12 +29,22 @@ export class Role extends AggregateRoot<Id> {
     description: string,
     permissions: string[],
   ): Role {
+    const logger = new Logger(Role.name);
+    logger.log('Creating a new Role with data: ', {
+      name,
+      description,
+      permissions,
+    });
+
     // Need to use snowflake instead of UUID here
     const id = new Id(randomUUID());
     const roleName = new RoleName(name);
     const roleDescription = new RoleDescription(description);
 
-    return new Role(id, roleName, roleDescription, permissions);
+    const role = new Role(id, roleName, roleDescription, permissions);
+    logger.log('Role created successfully with ID: ', id);
+
+    return role;
   }
 
   public getPermissions(): string[] {
