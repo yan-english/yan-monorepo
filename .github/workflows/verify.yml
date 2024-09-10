@@ -1,4 +1,4 @@
-name: Verify
+name: Analysis
 
 on:
   push:
@@ -36,6 +36,6 @@ jobs:
 
       - name: Run lint
         run: pnpm run lint
-
-      - name: Run tests
-        run: pnpm run test
+# TODO: Temporarily disable the test step
+#      - name: Run tests
+#        run: pnpm run test

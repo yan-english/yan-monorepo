@@ -1,5 +1,6 @@
 # Project Name
 Yan Flashcards
+
 ## Description
 This project consists of two main parts: `yan-web` and `yan-api`.
 
