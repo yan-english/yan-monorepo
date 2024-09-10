@@ -7,7 +7,7 @@ type PolicyProviderContextType = {
 
 export const PolicyProviderContext = createContext<PolicyProviderContextType>({} as PolicyProviderContextType)
 
-export const PolicyProvider = ({ children }) => {
+export const PolicyProvider = () => {
     // TODO: if not login return
 
     // TODO: call api return authorization (needs authorization to access home)

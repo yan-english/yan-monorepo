@@ -1,7 +1,5 @@
 import {createContext} from "react";
 import axios from "axios";
-import express from "express";
-import cors from "cors";
 import {createBrowserRouter} from "react-router-dom";
 
 export type AuthContextType = {
@@ -21,7 +19,7 @@ export const Axios = axios.create({
 })
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
-export default function AuthProvider({children, router}: Props) {
+export default function AuthProvider({children}: Props) {
     const signIn = async (
         email: string,
         password: string,
