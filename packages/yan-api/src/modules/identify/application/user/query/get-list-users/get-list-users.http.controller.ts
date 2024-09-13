@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Logger, Query } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetListUsersQuery } from './get-list-users.query';
 import { GetListUsersRequestDto, SortDto } from './get-list-users.request.dto';
@@ -8,6 +8,8 @@ import { BaseResponse } from '../../../../../../commons/application/base-reponse
 @ApiTags('users')
 @Controller('users')
 export class GetListUsersHttpController {
+  private readonly logger = new Logger(GetListUsersHttpController.name);
+
   constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
@@ -42,6 +44,17 @@ export class GetListUsersHttpController {
     type: BaseResponse,
   })
   async getUsers(@Query() getListUsersDto: GetListUsersRequestDto) {
-    return await this.queryBus.execute(new GetListUsersQuery(getListUsersDto));
+    this.logger.log(
+      'GetListUsers request received with query: ',
+      getListUsersDto,
+    );
+
+    const result = await this.queryBus.execute(
+      new GetListUsersQuery(getListUsersDto),
+    );
+
+    this.logger.log('GetListUsers query executed successfully');
+
+    return result;
   }
 }
