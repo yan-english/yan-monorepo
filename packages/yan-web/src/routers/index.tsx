@@ -1,11 +1,12 @@
-import SignIn from "../components/pages/SignIn";
-import {createBrowserRouter, Navigate} from "react-router-dom";
-import Home from "../components/pages/Home";
-import SignUp from "../components/pages/SignUp";
-import HomeTemplate from "../components/pages/HomeTemplate";
-import PolicyProvider from "../provider/PolicyProvider";
-import ForgotPassword from "../components/pages/ForgotPassword";
-import SignInTemplate from "../components/pages/SignInTemplate";
+import SignIn from '../components/pages/SignIn';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import Home from '../components/pages/Home';
+import SignUp from '../components/pages/SignUp';
+import HomeTemplate from '../components/pages/HomeTemplate';
+import PolicyProvider from '../provider/PolicyProvider';
+import ForgotPassword from '../components/pages/ForgotPassword';
+import SignInTemplate from '../components/pages/SignInTemplate';
+import NotFound from '../components/pages/NotFound.tsx';
 
 export const router = createBrowserRouter([
     {
@@ -48,4 +49,8 @@ export const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: '*',
+        element: <NotFound />,
+    }
 ]);
