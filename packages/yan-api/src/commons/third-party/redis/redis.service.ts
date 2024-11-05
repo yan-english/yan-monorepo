@@ -11,6 +11,7 @@ export class RoleCacheService {
     private dataSource: DataSource,
   ) {}
 
+  // TODO: Temporary solution, need to be improved
   async cacheRoles() {
     const roleRepository = this.dataSource.getRepository(RoleEntity);
     const roles = await roleRepository.find({

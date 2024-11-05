@@ -95,7 +95,7 @@ const controllers: Type[] = [
     ] as any),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '10h' }, // Example expiration time
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '15s' }, // Example expiration time
     }),
   ],
   controllers: [...controllers],
