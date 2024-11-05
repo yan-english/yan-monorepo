@@ -6,10 +6,7 @@ import { UserRepositoryPort } from '../../user.repository.port';
 import { IdentifyDomainService } from '../../../../domain/identify.domain-service';
 import { LoginResponse } from '../../user.types';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import {
-  REFRESH_TOKEN_EXPIRATION,
-  REFRESH_TOKEN_PREFIX,
-} from '../../../../../../commons/application/constants';
+import { REFRESH_TOKEN_EXPIRATION, REFRESH_TOKEN_PREFIX } from '../../../../../../commons/application/constants';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {
@@ -38,7 +35,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
       user.salt,
       user.password,
     );
-    this.logger.log('Password verification result: ', isCorrect);
+    this.logger.log('Password verification result: ', isCorrectPassword);
     if (!isCorrectPassword) {
       this.logger.warn('Password is incorrect');
       throw new BadRequestException('Password is incorrect');
@@ -51,8 +48,8 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
     this.logger.log('Refresh token generated: ', refreshToken);
 
     await this.cacheManager.set(
-      `${REFRESH_TOKEN_PREFIX}${user.id}`,
-      refreshToken,
+      `${REFRESH_TOKEN_PREFIX}${refreshToken}`,
+      user.id,
       REFRESH_TOKEN_EXPIRATION,
     );
     this.logger.log(
