@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { IdentifyModule } from './modules/identify/identify.module';
@@ -39,6 +34,10 @@ export class AppModule implements NestModule {
       .exclude(
         {
           path: 'auth/login',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'auth/refresh-token',
           method: RequestMethod.POST,
         },
         {

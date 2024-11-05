@@ -3,12 +3,7 @@ import { CreateUserCommand } from './create-user.command';
 import { User } from '../../../../domain/entities/user';
 import { UserRepositoryPort } from '../../user.repository.port';
 import { Err, Ok, Result } from 'oxide.ts';
-import {
-  BadRequestException,
-  ConflictException,
-  Inject,
-  Logger,
-} from '@nestjs/common';
+import { BadRequestException, ConflictException, Inject, Logger } from '@nestjs/common';
 import { UserAlreadyExistsException } from '../../../../domain/exceptions/user-exists.exception';
 import { Id } from '../../../../domain/value-objects/id.vo';
 import { USER_REPOSITORY } from '../../../../infrastructure/di/user.di-tokens';
@@ -31,7 +26,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   ): Promise<Result<Id, UserAlreadyExistsException>> {
     this.logger.log('Executing CreateUserCommand with data: ', command);
 
-    const user = User.create(command);
+    const user: User = User.create(command);
 
     const userEntity = await this.userRepository.findByEmail(command.email);
     if (userEntity) {
@@ -51,9 +46,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
     try {
       await this.userRepository.createUser(user);
-      this.logger.log(
-        'User created successfully with ID: ' + user.getId().value,
-      );
       return Ok(user.getId());
     } catch (error: any) {
       this.logger.error('Error creating user: ', error);

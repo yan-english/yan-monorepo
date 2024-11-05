@@ -31,9 +31,13 @@ import { GetListRolesHttpController } from './application/role/query/get-list-ro
 import { GetUserInfoHttpController } from './application/user/query/get-user-info/get-user-info.http.controller';
 import { GetUserInfoHandler } from './application/user/query/get-user-info/get-user-info.handler';
 import { GetPermissionsHandler } from './application/permission/command/get-permissions/get-permissions.handler';
-import { GetPermissionsHttpController } from './application/permission/command/get-permissions/get-permissions.http.controller';
+import {
+  GetPermissionsHttpController,
+} from './application/permission/command/get-permissions/get-permissions.http.controller';
 import { GetListUsersHttpController } from './application/user/query/get-list-users/get-list-users.http.controller';
 import { GetListUsersHandler } from './application/user/query/get-list-users/get-list-users.handler';
+import { RefreshTokenHttpController } from './application/user/command/refresh-token/refresh-token.http.controller';
+import { RefreshTokenHandler } from './application/user/command/refresh-token/refresh-token.handler';
 
 const repositories: Provider[] = [
   {
@@ -54,6 +58,8 @@ const commandHandlers: Provider[] = [
   CreateUserHandler,
   CreateRoleHandler,
   LoginHandler,
+  RefreshTokenHandler,
+
 ];
 const queryHandlers: Provider[] = [
   GetListRolesHandler,
@@ -69,6 +75,7 @@ const controllers: Type[] = [
   GetUserInfoHttpController,
   GetPermissionsHttpController,
   GetListUsersHttpController,
+  RefreshTokenHttpController,
 ];
 
 @Module({
@@ -88,7 +95,7 @@ const controllers: Type[] = [
     ] as any),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '100h' }, // Example expiration time
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '10h' }, // Example expiration time
     }),
   ],
   controllers: [...controllers],

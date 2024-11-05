@@ -1,10 +1,4 @@
-import {
-  Body,
-  ConflictException,
-  Controller,
-  Logger,
-  Post,
-} from '@nestjs/common';
+import { Body, ConflictException, Controller, Logger, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateUserRequestDto } from './create-user.request.dto';
 import { CreateUserCommand } from './create-user.command';
@@ -43,7 +37,6 @@ export class CreateUserHttpController {
     // Decide what to return based on the result (apply matching pattern)
     return match(result, {
       Ok: (id: Id) => {
-        this.logger.log('User created successfully with ID: ' + id.value);
         return new BaseResponse<Id>('', 'User created successfully', id);
       },
       Err: (error): BaseResponse<any> => {

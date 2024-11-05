@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { DataSource } from 'typeorm';
 import { RoleEntity } from '../../../modules/identify/infrastructure/database/entities/role.entity';
-import { PERMISSIONS_PREFIX } from '../../application/constants';
+import { PERMISSIONS_PREFIX, REFRESH_TOKEN_EXPIRATION } from '../../application/constants';
 
 @Injectable()
 export class RoleCacheService {
@@ -22,7 +22,7 @@ export class RoleCacheService {
       await this.cacheManager.set(
         `${PERMISSIONS_PREFIX}${role.name}`,
         permissions,
-        60 * 60 * 24 * 30,
+        REFRESH_TOKEN_EXPIRATION,
       );
     }
     console.log('Roles have been cached!');
