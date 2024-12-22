@@ -73,8 +73,8 @@ const controllers: Type[] = [
   LoginHttpController,
   GetListRolesHttpController,
   GetUserInfoHttpController,
-  GetPermissionsHttpController,
   GetListUsersHttpController,
+  GetPermissionsHttpController,
   RefreshTokenHttpController,
 ];
 
@@ -82,9 +82,9 @@ const controllers: Type[] = [
   imports: [
     CqrsModule,
     CacheModule.register(<RedisClientOptions>{
+      port: 6379,
       store: redisStore,
       host: 'localhost',
-      port: 6379,
     }),
     TypeOrmModule.forFeature([
       UserEntity,
@@ -95,7 +95,7 @@ const controllers: Type[] = [
     ] as any),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'yan-flashcards', // Replace with an environment variable in production
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '15s' }, // Example expiration time
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '50s' }, // Example expiration time
     }),
   ],
   controllers: [...controllers],

@@ -19,7 +19,13 @@ export class RefreshTokenHandler implements ICommandHandler<RefreshTokenCommand>
   ) {}
 
   async execute(command: RefreshTokenCommand): Promise<LoginResponse> {
+
+    // Lấy refresh token từ body mà client gửi lên
     const { refreshToken } = command;
+
+    // Kiểm tra refresh token có hợp lệ không bằng cách so sánh với token đượuc lưu trong cache
+    // nêu token không hợp lệ thì trả về lỗi 401 Unauthorized
+    // nếu hợp lệ thì lấy userId từ cache
     const userId = await this.verifyRefreshToken(refreshToken);
 
     if (!userId) {
@@ -27,16 +33,21 @@ export class RefreshTokenHandler implements ICommandHandler<RefreshTokenCommand>
       throw new UnauthorizedException('Invalid refresh token');
     }
 
+    // Lấy thông tin user từ db để tạo access token mới
     const user = await this.userRepository.findOneById(userId);
     if (!user) {
       this.logger.warn('User not found');
       throw new UnauthorizedException('User not found');
     }
 
+    // Tạo access token mới và refresh token mới
     const newAccessToken = this.identifyService.generateAccessToken(user);
     const newRefreshToken = this.identifyService.generateRefreshToken();
 
+    // Lưu refresh token mới vào cache với userId tương ứng
     await this.cacheManager.set(`${REFRESH_TOKEN_PREFIX}${newRefreshToken}`, userId, REFRESH_TOKEN_EXPIRATION);
+
+    // Xóa refresh token cũ khỏi cache
     await this.cacheManager.del(`${REFRESH_TOKEN_PREFIX}${refreshToken}`);
 
     this.logger.log('Refresh token successfully refreshed');
