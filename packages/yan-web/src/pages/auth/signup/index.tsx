@@ -14,7 +14,7 @@ import {
     Typography,
 } from '@mui/material';
 import {motion} from 'framer-motion';
-import {AuthService} from '../../../services/auth.service';
+import {useAuthContext} from '../../../provider/AuthProvider';
 import {signUpStyles} from './styles';
 import {PasswordStrengthIndicator} from '../../../components/PasswordStrengthIndicator';
 import {validateSignUpForm, ValidationErrors} from "./validatiion";
@@ -31,7 +31,7 @@ interface FormData {
 const SignUpPage: React.FC = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const [isLoading, setIsLoading] = useState(false);
+    const { signUp, isLoading } = useAuthContext();
 
     const [formData, setFormData] = useState<FormData>({
         firstName: '',
@@ -46,7 +46,6 @@ const SignUpPage: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, checked } = e.target;
-        console.log(name, value, checked); // Add this line
         setFormData(prev => ({
             ...prev,
             [name]: name === 'agreeToTerms' ? checked : value
@@ -68,14 +67,13 @@ const SignUpPage: React.FC = () => {
             return;
         }
 
-        setIsLoading(true);
         try {
-            await AuthService.signUp({
+            await signUp({
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 email: formData.email,
                 password: formData.password,
-                role: 'User'
+                roles: ['User']
             });
 
             enqueueSnackbar('Successfully registered!', { variant: 'success' });
@@ -85,8 +83,6 @@ const SignUpPage: React.FC = () => {
             enqueueSnackbar(errorMessage, {
                 variant: 'error'
             });
-        } finally {
-            setIsLoading(false);
         }
     };
 
@@ -114,8 +110,6 @@ const SignUpPage: React.FC = () => {
                                 onChange={handleInputChange}
                                 error={!!errors.firstName}
                                 helperText={errors.firstName}
-                                sx={{ input: { color: 'black' } }} // Set the text color to black
-
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>

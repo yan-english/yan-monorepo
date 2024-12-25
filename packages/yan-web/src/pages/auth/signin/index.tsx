@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
 import {Box, Button, CircularProgress, Grid, Link, Paper, TextField, Typography,} from '@mui/material';
 import {motion} from 'framer-motion';
-import {AuthService} from '../../../services/auth.service';
+import {useAuthContext} from '../../../provider/AuthProvider';
 import {signInStyles} from "./style";
 
 interface SignInFormData {
@@ -14,7 +14,7 @@ interface SignInFormData {
 const SignInPage: React.FC = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const [isLoading, setIsLoading] = useState(false);
+    const { signIn, isLoading } = useAuthContext();
     const [formData, setFormData] = useState<SignInFormData>({
         email: '',
         password: '',
@@ -48,10 +48,8 @@ const SignInPage: React.FC = () => {
 
         if (!validateForm()) return;
 
-        setIsLoading(true);
         try {
-            const response = await AuthService.signIn(formData.email, formData.password);
-            localStorage.setItem('token', response.token);
+            await signIn(formData.email, formData.password);
             enqueueSnackbar('Successfully signed in!', { variant: 'success' });
             navigate('/');
         } catch (error: unknown) {
@@ -59,8 +57,6 @@ const SignInPage: React.FC = () => {
             enqueueSnackbar(errorMessage, {
                 variant: 'error'
             });
-        } finally {
-            setIsLoading(false);
         }
     };
 

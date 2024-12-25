@@ -3,13 +3,14 @@ import {Box} from '@mui/material';
 import {Navigate, Outlet} from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import {AuthService} from '../../services/auth.service';
+import {useAuth} from '../../hooks/useAuth';
 import {mainLayoutStyles} from './styles';
 
 const MainLayout: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const { isAuthenticated } = useAuth();
 
-    if (!AuthService.isAuthenticated()) {
+    if (!isAuthenticated()) {
         return <Navigate to="/sign-in" />;
     }
 

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {AppBar, Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Typography,} from '@mui/material';
 import {Menu as MenuIcon} from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
-import {AuthService} from '../../../services/auth.service';
 import {navbarStyles} from "./style";
+import {useAuthContext} from "../../../provider/AuthProvider";
 
 interface NavbarProps {
     onMenuClick: () => void;
@@ -12,6 +12,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const { signOut } = useAuthContext();
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -21,8 +22,8 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
-        AuthService.signOut();
+    const handleLogout = async () => {
+        await signOut();
         navigate('/sign-in');
     };
 
