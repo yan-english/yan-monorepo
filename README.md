@@ -34,7 +34,7 @@ pnpm run web:dev
 1. Cd to yan-api folder and create a `.env` file in the `yan-api` directory with the content based on the `.env.example` file.
 
 
-2. Run docker compose file to start the depens servives such as the dabase and the caching:
+2. Run docker compose file to start the depends servives such as the database and the caching:
 ```bash
  docker compose up -d
 ```
