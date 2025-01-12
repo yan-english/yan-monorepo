@@ -1,56 +1,32 @@
-import SignIn from '../components/pages/SignIn';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import Home from '../components/pages/Home';
-import SignUp from '../components/pages/SignUp';
-import HomeTemplate from '../components/pages/HomeTemplate';
-import PolicyProvider from '../provider/PolicyProvider';
-import ForgotPassword from '../components/pages/ForgotPassword';
-import SignInTemplate from '../components/pages/SignInTemplate';
-import NotFound from '../components/pages/NotFound.tsx';
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
+import AuthLayout from '../layouts/AuthLayout';
+import MainLayout from '../layouts/MainLayout';
+import SignInPage from '../pages/auth/signin';
+import SignUpPage from '../pages/auth/signup';
+import HomePage from '../pages/home';
+import NotFoundPage from '../pages/NotFound';
 
-export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: (
-            <PolicyProvider>
-                <HomeTemplate />
-            </PolicyProvider>
-        ),
-        children: [
-            {
-                index: true,
-                element: <Navigate to={'/home'} />,
-            },
-            {
-                path: 'home',
-                element: (
-                    <Home />)
-            }
-        ]
-    },
-    {
-        element: <SignInTemplate />,
-        children: [
-            {
-                index: true,
-                element: <Navigate to={'/sign-in'} />,
-            },
-            {
-                path: 'sign-in',
-                element: <SignIn />,
-            },
-            {
-                path: 'sign-up',
-                element: <SignUp />,
-            },
-            {
-                path: 'forgot-password',
-                element: <ForgotPassword />,
-            },
-        ],
-    },
-    {
-        path: '*',
-        element: <NotFound />,
-    }
-]);
+const AppRoutes: React.FC = () => {
+    return (
+        <Routes>
+            {/* Auth routes */}
+            <Route element={<AuthLayout />}>
+                <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/sign-up" element={<SignUpPage />} />
+            </Route>
+
+            {/* Protected routes */}
+            <Route element={<MainLayout />}>
+                <Route path="/" element={<HomePage />} />
+                {/*<Route path="/profile" element={<ProfilePage />} />*/}
+            </Route>
+
+            {/* 404 page */}
+            <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+    );
+};
+
+export default AppRoutes;
+

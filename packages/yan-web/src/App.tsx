@@ -1,16 +1,28 @@
-import './App.css'
-import {RouterProvider} from "react-router-dom";
-import {router} from "./routers";
-import AuthProvider from "./provider/AuthProvider";
+import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
+import {ThemeProvider} from '@mui/material/styles';
+import {SnackbarProvider} from 'notistack';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './utils/theme';
+import AppRoutes from "./routers";
 
-function App() {
-  return (
-    <>
-        <AuthProvider router={router}>
-            <RouterProvider router={router} />
-        </AuthProvider>
-    </>
-  )
-}
+const App: React.FC = () => {
+    return (
+        <BrowserRouter>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <SnackbarProvider
+                    maxSnack={3}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+                    <AppRoutes />
+                </SnackbarProvider>
+            </ThemeProvider>
+        </BrowserRouter>
+    );
+};
 
-export default App
+export default App;
